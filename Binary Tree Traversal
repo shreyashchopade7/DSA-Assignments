@@ -1,0 +1,100 @@
+//============================================================================
+// Name        : threaded.cpp
+// Author      : fd
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+struct node
+{
+	int data;
+	node *left;
+	node *right;
+};
+
+class b_tree
+{
+private:
+	node *root=NULL;
+
+public:
+
+	struct node* create_node(int n);
+	void inorder(struct node* root);
+	void preorder(struct node* root);
+	void postorder(struct node* root);
+};
+
+struct node* b_tree::create_node(int n)
+{
+	node *nn;
+	nn=new node();
+	nn->data=n;
+	nn->left=NULL;
+	nn->right=NULL;
+	if(root==NULL)
+		root=nn;
+	return nn;
+}
+void b_tree::inorder(struct node* root)
+{
+
+	if(root!=NULL)
+	{
+		inorder(root->left);
+		cout<<root->data<<" ";
+		inorder (root->right);
+
+	}
+
+}
+void b_tree::preorder(struct node* root)
+{
+
+	if(root!=NULL)
+	{
+		cout<<root->data<<" ";
+		preorder(root->left);
+		preorder(root->right);
+	}
+
+}
+void b_tree::postorder(struct node* root)
+{
+	if(root!=NULL)
+	{
+		postorder(root->left);
+		postorder(root->right);
+		cout<<root->data<<" ";
+	}
+
+}
+
+int main()
+{
+	b_tree b1;
+	node *p=b1.create_node(3);
+	node *p1=b1.create_node(5);
+	node *p2=b1.create_node(9);
+	p->left=p1;
+	p->right=p2;
+	node *p3=b1.create_node(7);
+	node *p4=b1.create_node(4);
+	node *p5=b1.create_node(1);
+	p1->left=p3;
+	p1->right=p4;
+	p2->left=p5;
+	cout<<"In-order : ";
+	b1.inorder(p);
+	cout<<endl;
+	cout<<"Pre-order : ";
+	b1.preorder(p);
+	cout<<endl;
+	cout<<"Post-order : ";
+	b1.postorder(p);
+	cout<<endl;
+}
